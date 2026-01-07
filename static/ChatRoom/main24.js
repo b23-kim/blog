@@ -181,6 +181,18 @@
         // 处理普通文本
         else if (typeof content === 'string') {
           processedContent = this.parseContent(content.trim());
+          if(content.includes("[:image::"))
+          {  //这里没有chatContent这个div
+            return `
+          <div class="chatItem ${chatClass}">
+            ${avatarHTML}
+            <div class="chatContentWrapper">
+              <b class="chatName">${chatName}</b>
+              ${processedContent}
+            </div>
+          </div>
+        `;
+          }
         } 
         // 兜底：如果content既不是字符串也不是ARK，尝试转为字符串
         else {
