@@ -142,13 +142,6 @@
                 }
             }
 
-            .chatContent:hover {
-                background: rgb(248, 251, 255);
-                /* 保持原背景色 */
-                color: inherit;
-                /* 保持文本颜色 */
-            }
-
             .chatName {
                 color: var(--highlight-color);
             }
@@ -250,4 +243,5 @@
 
 
 }
+
 
