@@ -1,175 +1,255 @@
-/* 图文卡片样式 */
-.article-card {
-  border: 1px solid #e0e0e0;
-  border-radius: 12px;
-  overflow: hidden;
-  background-color: #FFFFFF;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-  margin: 12px 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  cursor: pointer;
+:root {
+    --primary-color: rgb(43, 105, 100);
+    --secondary-color: rgb(236, 236, 236);
+    --text-color: rgb(255, 255, 255);
+    --highlight-color: rgb(63, 153, 146);
+    --border-color: rgba(49, 56, 66, 0.193);
+    --avatar-size: 40px;
+    --padding-main: 20px;
+    --radius-main: 10px;
 }
 
-.article-card-header {
-  padding: 12px 16px 8px;
+.chatContainer {
+    overflow: hidden;
+    width: 100%;
+    border: 3px solid var(--primary-color);
+    border-radius: 8px;
+    background-color: var(--secondary-color);
 }
 
-.article-card-app {
-  display: flex;
-  align-items: center;
-  margin-bottom: 4px;
+.chatBoxTitle {
+    display: flex;
+    justify-content: space-between;
+    background: var(--primary-color);
+    padding: 10px;
+    color: var(--text-color);
+    align-items: center;
+
+    i {
+        padding-top: 4px;
+        font-size: 16px;
+        margin: 0 10px;
+        color: var(--text-color);
+        cursor: pointer;
+    }
+
+    .chatTitleText {
+        flex: 1;
+        font-size: 16px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: var(--text-color);
+        cursor: pointer;
+        transition: color 0.3s ease-in-out;
+    }
+
+    .chatTitleText:hover {
+        color: var(--secondary-color);
+    }
 }
 
-.article-card-app-icon {
-  width: 14px;
-  height: 14px;
-  margin-right: 5px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+.chatBox {
+    padding: var(--padding-main) 30px;
+    box-sizing: border-box;
+    background-color: var(--secondary-color);
+    max-height: 900px;
+    overflow: auto;
+
+    @media (max-width: 768px) {
+        padding: var(--padding-main) 10px;
+    }
+
+    @media (max-width: 480px) {
+        padding: var(--padding-main) 5px;
+    }
+
 }
 
-.article-card-app-icon img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: block;
+.chatItem {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin: var(--padding-main) 0;
+
+    .chatAvatar {
+        width: var(--avatar-size);
+        height: var(--avatar-size);
+        border-radius: 50% !important;
+        margin: 5px 10px 0 0 !important;
+    }
+
+    .chatContentWrapper {
+        display: flex;
+        flex-direction: column;
+        width: calc(100% - 110px);
+
+        .chatContent {
+            background: var(--primary-color);
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            border-radius: 0 var(--radius-main) var(--radius-main) var(--radius-main);
+            width: fit-content;
+            max-width: 100%;
+            word-wrap: break-word;
+            transition: background 0.3s ease-in-out, border 0.3s ease-in-out;
+
+            .chatCall {
+                color: rgb(4, 147, 243);
+                font-weight: bold;
+            }
+        }
+
+        .chatContent:hover {
+            background: var(--primary-color);
+            color: var(--text-color);
+        }
+
+        .chatName {
+            color: var(--primary-color);
+        }
+
+        .chatMedia {
+            max-width: 100%;
+            height: auto;
+            margin-top: 5px;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+            border-radius: 8px;
+        }
+
+        .chatMedia:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    }
+
+    &.me {
+        flex-direction: row-reverse;
+
+        .chatAvatar {
+            margin: 5px 0 0 10px !important;
+        }
+
+        .chatContentWrapper {
+            align-items: flex-end;
+
+            .chatContent {
+                background: rgb(248, 251, 255);
+                border-radius: var(--radius-main) 0 var(--radius-main) var(--radius-main);
+                transition: none;
+                /* 移除悬停效果 */
+
+                .chatCall {
+                    color: rgb(225, 160, 8);
+                    font-weight: bold;
+                }
+            }
+
+            .chatContent:hover {
+                background: rgb(248, 251, 255);
+                /* 保持原背景色 */
+                color: inherit;
+                /* 保持文本颜色 */
+            }
+
+            .chatName {
+                color: var(--highlight-color);
+            }
+        }
+    }
 }
 
-.article-card-appname {
-  font-size: 12px;
-  color: #999;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+/* 链接样式 */
+.chatLink {
+    /* color: var(--primary-color); */
+    text-decoration: underline;
+    transition: color 0.3s ease-in-out, text-decoration 0.3s ease-in-out;
+    color: var(--border-color);
 }
 
-.article-card-title {
-  font-size: 16px;
-  margin: 0;
-  font-weight: normal;
-  color: #000000;
-  line-height: 1.4;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
+.chatLink:hover {
+    text-decoration: none;
+    color: var(--highlight-color);
 }
 
-.article-card-content {
-  display: flex;
-  padding: 0 16px 12px;
+.chatQuoteCard {
+    display: flex;
+    border: 3px solid var(--highlight-color);
+    border-radius: 0 var(--radius-main) var(--radius-main) var(--radius-main);
+    flex-direction: column;
+    align-items: stretch;
+    margin: -12px;
+
+
+    .chatQuoteTetle {
+        background-color: var(--highlight-color);
+        display: flex;
+        justify-content: space-between;
+        color: #fff;
+
+        span {
+            padding-left: 64px;
+        }
+
+        i {
+            margin-top: 2px;
+            margin-left: 2px;
+        }
+
+    }
+
+    .chatMessage {
+        /* margin-left: 8px; */
+        margin: 16px 16px;
+    }
 }
 
-.article-card-description {
-  flex: 1;
-  color: #999;
-  font-size: 13px;
-  line-height: 1.4;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
+.chatQuote {
+    display: flex;
+    border: 3px solid var(--highlight-color);
+    border-radius: 0 var(--radius-main) var(--radius-main) var(--radius-main);
+    flex-direction: column;
+    align-items: stretch;
+    margin: 0px -10px -10px;
+
+    .quoteUser {
+        background-color: var(--highlight-color);
+        display: flex;
+        justify-content: space-between;
+        color: #fff;
+
+        span {
+            padding: -16px;
+            font-weight: lighter;
+        }
+
+        i {
+            margin-top: 2px;
+            margin-left: 2px;
+            font-weight: lighter;
+        }
+    }
 }
 
-.article-card-icon {
-  width: 56px;
-  height: 56px;
-  margin-left: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
-.article-card-icon img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
+.systemNotification {
+    text-align: center ; 
+    /* color: var(--primary-color); */
+    background-color: rgb(161, 161, 161);
+    padding: 1px;
+    margin: 20px auto;
+    max-width: 50%;
+    font-style: italic;
+    font-weight: bold;
+    border: 1px  ;
+    border-radius: var(--radius-main);
 
-.article-card-footer {
-  padding: 2px 16px;
-  border-top: 1px solid #f0f0f0;
-  background-color: #FFFFFF;
-  display: flex;
-  align-items: center;
-}
+    .systemContent {
+        /* display: flex; */
+        font-size: 14px;
+        line-height: 1.5;
+        /* text-align: center; */
+    }
 
-.article-card-footer-icon {
-  width: 14px;
-  height: 14px;
-  margin-right: 6px;
-  flex-shrink: 0;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.article-card-footer-icon img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: block;
-}
-
-.article-card-source {
-  font-size: 12px;
-  color: #999;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  flex: 1;
-}
-
-/* 聊天记录卡片样式 - 保持与之前讨论一致 */
-.chat-card {
-  border: 1px solid #e0e0e0;
-  border-radius: 12px;
-  overflow: hidden;
-  background-color: #FFFFFF;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-  margin: 12px 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  cursor: pointer;
-}
-
-.chat-card-header {
-  padding: 10px 16px 1px;
-}
-
-.chat-card-header h3 {
-  font-size: 16px;
-  margin: 0;
-  font-weight: normal;
-  color: #000000;
-}
-
-.chat-card-content {
-  padding: 0px 16px 8px;
-  background-color: #FFFFFF;
-}
-
-.chat-message {
-  color: #999;
-  font-size: 14px;
-}
-
-.chat-card-footer {
-  padding: 2px 16px;
-  border-top: 1px solid #f0f0f0;
-  background-color: #FFFFFF;
-  font-size: 13px;
-  color: #666;
-  text-align: left;
-}
-
-/* 其他卡片样式（小程序、频道、社交关系卡片）省略，使用我们之前讨论的样式 */
-
-/* ARK卡片通用样式 */
-.ark-card {
-  margin: 10px 0;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
